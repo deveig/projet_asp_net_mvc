@@ -1,0 +1,92 @@
+@model MvcIngredient.Models.Ingredient
+
+@{
+    ViewData["Title"] = "My cooking recipe.";
+}
+
+<header>
+    <img class="picture" src="~/assets/salad.jpg" alt="Salad" />
+    <h1 class="main-title">Salad</h1>
+    <p class="description"> Delicious flavored salad ! </p>
+</header>
+<main>
+    <section>
+        <h2 class="subtitle">Overview</h2>
+        <dl class="features">
+            <dt class="feature-picture">
+                <div class="rate">
+                    <i class="fa-solid fa-star fa-2xs"></i>
+                    <i class="fa-solid fa-star fa-2xs"></i>
+                    <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
+                    <i class="fa-regular fa-star fa-2xs"></i>
+                    <i class="fa-regular fa-star fa-2xs"></i>
+                </div>
+            </dt>
+            <dd class="feature">Difficulty</dd>
+            <dt class="feature-picture feature-picture-decoration"> 7€ </dt>
+            <dd class="feature">Cost</dd>
+            <dt class="feature-picture feature-picture-decoration"> 45min </dt>
+            <dd class="feature">Preparation time</dd>
+            <dt class="feature-picture feature-picture-decoration"> 0min </dt>
+            <dd class="feature">Cooking time</dd>
+            <dt class="feature-picture feature-picture-decoration"> 20min </dt>
+            <dd class="feature">Resting time</dd>
+        </dl>
+    </section>
+    <section>
+        <h2 class="subtitle">Ingredients</h2>
+        <form method="post" asp-action="Create">
+            <div class="item-handler">
+                <button type="button" class="less-item" name="minus" value="minus">-</button>
+                <button class="more-item" name="plus" value="plus">+</button>
+            </div>
+            <table>
+                <caption class="table-legend">List of ingredients. Fill fields and click on plus
+                    button to add ingredient to your recipe ! Click on minus button to remove it !</caption>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><label asp-for="IngredientName"></label></th>
+                        <th><label asp-for="Quantity"></label></th>
+                        <th><label asp-for="Unit"></label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input asp-for="IngredientName" />
+                        </td>
+                        <td>
+                            <input asp-for="Quantity" />
+                        </td>
+                        <td>
+                            <input asp-for="Unit" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span asp-validation-for="IngredientName" class="warning"></span></td>
+                        <td><span asp-validation-for="Quantity" class="warning"></span></td>
+                        <td><span asp-validation-for="Unit" class="warning"></span></td>
+                    </tr>
+                    @if ((string)ViewData["ErrorMessage"]! != "")
+                    {
+                        <tr>
+                            <td class="warning" colspan="4">@ViewData["ErrorMessage"]</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="4"><a asp-action="Index">All ingredients of the recipe.</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </section>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

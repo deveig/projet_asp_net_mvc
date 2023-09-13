@@ -1,0 +1,30 @@
+using Microsoft.EntityFrameworkCore;
+using MvcIngredient.Interfaces;
+using MvcIngredient.Data;
+using MvcIngredient.Models;
+
+namespace MvcIngredient.Repository
+{
+    public class IngredientRepository : IIngredientRepository
+    {
+        private readonly MvcIngredientContext _context;
+
+        public IngredientRepository(MvcIngredientContext context)
+        {
+            _context = context;
+        }
+
+
+        public async Task<List<Ingredient>> GetAllIngredients()
+        {
+            return _context.Ingredient != null ?
+                await _context.Ingredient.ToListAsync() : null;
+        }
+
+        public async void AddIngredient(Ingredient ingredient)
+        {
+            _context.Add(ingredient);
+            await _context.SaveChangesAsync();
+        }
+    }
+}
