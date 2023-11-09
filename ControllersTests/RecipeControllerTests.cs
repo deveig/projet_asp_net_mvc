@@ -19,6 +19,13 @@ namespace MvcIngredient.ControllersTests
                     IngredientName = "salad",
                     Quantity = 1,
                     Unit = "piece"
+                },
+                new Ingredient
+                {
+                    Id = 2,
+                    IngredientName = "oil",
+                    Quantity = 5,
+                    Unit = "cl"
                 }
             };
             return ingredients;
@@ -27,7 +34,7 @@ namespace MvcIngredient.ControllersTests
         [Fact]
         public async Task Index_ReturnsAViewResult_WithAListOfIngredients()
         {
-            // Arrange
+            // Arrange.
             var mockRepository = new Mock<IIngredientRepository>();
             mockRepository.Setup(repository => repository.GetAllIngredients())
                 .ReturnsAsync(GetTestIngredients())
@@ -36,10 +43,10 @@ namespace MvcIngredient.ControllersTests
             List<Ingredient> ingredients = GetTestIngredients();
             Ingredient ingredient = ingredients[0];
 
-            // Act
+            // Act.
             var result = await controller.Index();
 
-            // Assert
+            // Assert.
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<List<Ingredient>>(
                 viewResult.ViewData.Model);
@@ -52,12 +59,12 @@ namespace MvcIngredient.ControllersTests
         [Fact]
         public async Task Create_AddsAValidIngredient_AndRedirectToActionOfIndex()
         {
-            // Arrange
+            // Arrange.
             var mockRepository = new Mock<IIngredientRepository>();
             mockRepository.Setup(repository => repository.AddIngredient(It.IsAny<Ingredient>()))
                 .Verifiable();
             var controller = new RecipeController(mockRepository.Object);
-            var ingredient = new Ingredient()
+            var ingredient = new Ingredient
             {
                 Id = 1,
                 IngredientName = "salad",
@@ -65,22 +72,22 @@ namespace MvcIngredient.ControllersTests
                 Unit = "piece"
             };
 
-            // Act
+            // Act.
             var result = await controller.Create(ingredient);
 
-            // Assert
+            // Assert.
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectToActionResult.ActionName);
             mockRepository.Verify();
         }
 
         [Fact]
-        public async Task Create_AddsAnInValidIngredient_AndReturnsErrorMessage()
+        public async Task Create_AddsAnInvalidIngredient_AndReturnsErrorMessage()
         {
-            // Arrange
+            // Arrange.
             var mockRepository = new Mock<IIngredientRepository>();
             var controller = new RecipeController(mockRepository.Object);
-            var ingredient = new Ingredient()
+            var ingredient = new Ingredient
             {
                 Id = 1,
                 IngredientName = "5oil",
@@ -88,14 +95,63 @@ namespace MvcIngredient.ControllersTests
                 Unit = "cl"
             };
 
-            // Act
+            // Act.
             var result = await controller.Create(ingredient);
 
-            // Assert
+            // Assert.
             var viewResult = Assert.IsType<ViewResult>(result);
             var errorMessage = Assert.IsAssignableFrom<string>(
                 viewResult.ViewData["ErrorMessage"]);
             Assert.Equal("Name and metric are words and quantity is a number.", errorMessage);
+            mockRepository.Verify();
+        }
+
+        [Fact]
+        public async Task Delete_TheLastIngredient_AndReturnsWarningMessage()
+        {
+            // Arrange.
+            var mockRepository = new Mock<IIngredientRepository>();
+            mockRepository.Setup(repository => repository.GetAllIngredients())
+                .ReturnsAsync(GetTestIngredients())
+                .Verifiable();
+            mockRepository.Setup(repository => repository.DeleteIngredient(It.IsAny<Ingredient>()))
+                .Verifiable();
+            var controller = new RecipeController(mockRepository.Object);
+            var value = new Dictionary<string, bool>();
+            value.Add("delete", true);
+
+            // Act.
+            var result = await controller.Delete(value);
+
+            // Assert.
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var warningMessage = Assert.IsAssignableFrom<string>(
+                viewResult.ViewData["WarningMessage"]);
+            Assert.Equal("Last ingredient removed.", warningMessage);
+            mockRepository.Verify();
+        }
+
+        [Fact]
+        public async Task Delete_WhenNoIngredientToDelete_AndReturnsWarningMessage()
+        {
+            // Arrange.
+            List<Ingredient> ingredients = new List<Ingredient>();
+            var mockRepository = new Mock<IIngredientRepository>();
+            mockRepository.Setup(repository => repository.GetAllIngredients())
+                .ReturnsAsync(ingredients)
+                .Verifiable();
+            var controller = new RecipeController(mockRepository.Object);
+            var value = new Dictionary<string, bool>();
+            value.Add("delete", true);
+
+            // Act.
+            var result = await controller.Delete(value);
+
+            // Assert.
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var warningMessage = Assert.IsAssignableFrom<string>(
+                viewResult.ViewData["WarningMessage"]);
+            Assert.Equal("No ingredient to remove.", warningMessage);
             mockRepository.Verify();
         }
     }

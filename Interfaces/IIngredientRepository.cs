@@ -7,5 +7,7 @@ namespace MvcIngredient.Interfaces
         Task<List<Ingredient>> GetAllIngredients();
 
         void AddIngredient(Ingredient ingredient);
+
+        void DeleteIngredient(Ingredient lastIngredient);
     }
 }

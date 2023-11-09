@@ -14,7 +14,6 @@ namespace MvcIngredient.Repository
             _context = context;
         }
 
-
         public async Task<List<Ingredient>> GetAllIngredients()
         {
             return _context.Ingredient != null ?
@@ -24,6 +23,12 @@ namespace MvcIngredient.Repository
         public async void AddIngredient(Ingredient ingredient)
         {
             _context.Add(ingredient);
+            await _context.SaveChangesAsync();
+        }
+
+        public async void DeleteIngredient(Ingredient lastIngredient)
+        {
+            _context.Remove(lastIngredient);
             await _context.SaveChangesAsync();
         }
     }

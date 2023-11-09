@@ -1,0 +1,42 @@
+<header>
+    <img class="picture" src="~/assets/salad.jpg" alt="Salad" />
+    <h1 class="main-title">Salad</h1>
+    <p class="description"> Delicious flavored salad ! </p>
+</header>
+<main>
+    <section>
+        <h2 class="subtitle">Overview</h2>
+        <dl class="features">
+            <dt class="feature-picture">
+                <div class="rate">
+                    <i class="fa-solid fa-star fa-2xs"></i>
+                    <i class="fa-solid fa-star fa-2xs"></i>
+                    <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
+                    <i class="fa-regular fa-star fa-2xs"></i>
+                    <i class="fa-regular fa-star fa-2xs"></i>
+                </div>
+            </dt>
+            <dd class="feature">Difficulty</dd>
+            <dt class="feature-picture feature-picture-decoration"> 7€ </dt>
+            <dd class="feature">Cost</dd>
+            <dt class="feature-picture feature-picture-decoration"> 45min </dt>
+            <dd class="feature">Preparation time</dd>
+            <dt class="feature-picture feature-picture-decoration"> 0min </dt>
+            <dd class="feature">Cooking time</dd>
+            <dt class="feature-picture feature-picture-decoration"> 20min </dt>
+            <dd class="feature">Resting time</dd>
+        </dl>
+    </section>
+    <section>
+        <h2 class="subtitle">Ingredients</h2>
+        <table>
+            <p class="warning">@ViewData["WarningMessage"]</p>
+            <tr>
+                <td class="warning" colspan="4"><a asp-action="Index">All ingredients of the recipe.</a></td>
+            </tr>
+            <tr>
+                <td class="warning" colspan="4"><a asp-action="Create">Add an ingredient !</a></td>
+            </tr>
+        </table>
+    </section>
+</main>

@@ -36,13 +36,9 @@
     <section>
         <h2 class="subtitle">Ingredients</h2>
         <form method="post" asp-action="Create">
-            <div class="item-handler">
-                <button type="button" class="less-item" name="minus" value="minus">-</button>
-                <button class="more-item" name="plus" value="plus">+</button>
-            </div>
             <table>
-                <caption class="table-legend">List of ingredients. Fill fields and click on plus
-                    button to add ingredient to your recipe ! Click on minus button to remove it !</caption>
+                <caption class="table-legend">List of ingredients. Fill fields and add ingredient to your recipe !
+                </caption>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -81,6 +77,7 @@
                     </tr>
                 </tbody>
             </table>
+            <input class="more-item" type="submit" value="Add an ingredient." />
         </form>
     </section>
 </main>
