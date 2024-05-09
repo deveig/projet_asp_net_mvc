@@ -6,71 +6,91 @@
 
 <header>
     <img class="picture" src="~/assets/salad.jpg" alt="Salad" />
-    <h1 class="main-title">Salad</h1>
-    <p class="description"> Delicious flavored salad ! </p>
+    <div>
+        <h1 class="main-title">Salad</h1>
+        <p class="description">Delicious flavored salad !</p>
+    </div>
 </header>
 <main>
     <section>
         <h2 class="subtitle">Overview</h2>
         <dl class="features">
-            <dt class="feature-picture">
-                <div class="rate">
-                    <i class="fa-solid fa-star fa-2xs"></i>
-                    <i class="fa-solid fa-star fa-2xs"></i>
-                    <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
-                    <i class="fa-regular fa-star fa-2xs"></i>
-                    <i class="fa-regular fa-star fa-2xs"></i>
-                </div>
-            </dt>
-            <dd class="feature">Difficulty</dd>
-            <dt class="feature-picture feature-picture-decoration"> 7€ </dt>
-            <dd class="feature">Cost</dd>
-            <dt class="feature-picture feature-picture-decoration"> 45min </dt>
-            <dd class="feature">Preparation time</dd>
-            <dt class="feature-picture feature-picture-decoration"> 0min </dt>
-            <dd class="feature">Cooking time</dd>
-            <dt class="feature-picture feature-picture-decoration"> 20min </dt>
-            <dd class="feature">Resting time</dd>
+            <div>
+                <dt class="feature-picture">
+                    <div class="rate">
+                        <i class="fa-solid fa-star fa-2xs"></i>
+                        <i class="fa-solid fa-star fa-2xs"></i>
+                        <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
+                        <i class="fa-regular fa-star fa-2xs"></i>
+                        <i class="fa-regular fa-star fa-2xs"></i>
+                    </div>
+                </dt>
+                <dd class="feature">Difficulty</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">7€</dt>
+                <dd class="feature">Cost</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">45min</dt>
+                <dd class="feature">Preparation time</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">0min</dt>
+                <dd class="feature">Cooking time</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">20min</dt>
+                <dd class="feature">Resting time</dd>
+            </div>
         </dl>
     </section>
     <section>
         <h2 class="subtitle">Ingredients</h2>
-        Servings:
-        <span>@Model.Count</span>
-        <table>
-            <caption class="table-legend">List of ingredients !</caption>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Metric</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Model.Count; i++)
-                {
+        <div class="item-presentation">
+            <div class="item-handler">
+                <span>Servings:
+                    <span>@Model.Count</span>
+                </span>
+                <div>
+                    <span>Remove an ingredient !</span>
+                    <button class="less-item" type="submit" form="form">-</button>
+                </div>
+            </div>
+            <table>
+                <caption class="table-legend">List of ingredients !</caption>
+                <thead>
                     <tr>
-                        <td>@(i + 1)</td>
-                        <td>@Html.DisplayFor(modelIngredient => Model[i].IngredientName)</td>
-                        <td>@Html.DisplayFor(modelIngredient => Model[i].Quantity)</td>
-                        <td>@Html.DisplayFor(modelIngredient => Model[i].Unit)</td>
+                        <th class="item-datas item-number">N°</th>
+                        <th class="item-datas">Name</th>
+                        <th class="item-datas">Quantity</th>
+                        <th class="item-datas">Metric</th>
                     </tr>
-                }
-                @if ((string)ViewData["ErrorMessage"]! != "")
-                {
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="item-datas item-number">@(i + 1)</td>
+                            <td class="item-datas">@Html.DisplayFor(modelIngredient => Model[i].IngredientName)</td>
+                            <td class="item-datas">@Html.DisplayFor(modelIngredient => Model[i].Quantity)</td>
+                            <td class="item-datas">@Html.DisplayFor(modelIngredient => Model[i].Unit)</td>
+                        </tr>
+                    }
+                    @if ((string)ViewData["ErrorMessage"]! != "")
+                    {
+                        <tr>
+                            <td class="warning" colspan="4">@ViewData["ErrorMessage"]</td>
+                        </tr>
+                    }
                     <tr>
-                        <td class="warning" colspan="4">@ViewData["ErrorMessage"]</td>
+                        <td colspan="4"><a asp-action="Create">Add an ingredient !</a></td>
                     </tr>
-                }
-                <tr>
-                    <td colspan="4"><a asp-action="Create">Add an ingredient !</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <form method="post" asp-action="Delete">
+                </tbody>
+            </table>
+        </div>
+        <form method="post" asp-action="Delete" id="form">
             <input type="hidden" name="delete" value="true" />
-            <input class="less-item" type="submit" value="Remove an ingredient." />
         </form>
     </section>
 </main>

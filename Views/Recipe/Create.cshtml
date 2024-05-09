@@ -6,65 +6,83 @@
 
 <header>
     <img class="picture" src="~/assets/salad.jpg" alt="Salad" />
-    <h1 class="main-title">Salad</h1>
-    <p class="description"> Delicious flavored salad ! </p>
+    <div>
+        <h1 class="main-title">Salad</h1>
+        <p class="description">Delicious flavored salad !</p>
+    </div>
 </header>
 <main>
     <section>
         <h2 class="subtitle">Overview</h2>
         <dl class="features">
-            <dt class="feature-picture">
-                <div class="rate">
-                    <i class="fa-solid fa-star fa-2xs"></i>
-                    <i class="fa-solid fa-star fa-2xs"></i>
-                    <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
-                    <i class="fa-regular fa-star fa-2xs"></i>
-                    <i class="fa-regular fa-star fa-2xs"></i>
-                </div>
-            </dt>
-            <dd class="feature">Difficulty</dd>
-            <dt class="feature-picture feature-picture-decoration"> 7€ </dt>
-            <dd class="feature">Cost</dd>
-            <dt class="feature-picture feature-picture-decoration"> 45min </dt>
-            <dd class="feature">Preparation time</dd>
-            <dt class="feature-picture feature-picture-decoration"> 0min </dt>
-            <dd class="feature">Cooking time</dd>
-            <dt class="feature-picture feature-picture-decoration"> 20min </dt>
-            <dd class="feature">Resting time</dd>
+            <div>
+                <dt class="feature-picture">
+                    <div class="rate">
+                        <i class="fa-solid fa-star fa-2xs"></i>
+                        <i class="fa-solid fa-star fa-2xs"></i>
+                        <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
+                        <i class="fa-regular fa-star fa-2xs"></i>
+                        <i class="fa-regular fa-star fa-2xs"></i>
+                    </div>
+                </dt>
+                <dd class="feature">Difficulty</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">7€</dt>
+                <dd class="feature">Cost</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">45min</dt>
+                <dd class="feature">Preparation time</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">0min</dt>
+                <dd class="feature">Cooking time</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">20min</dt>
+                <dd class="feature">Resting time</dd>
+            </div>
         </dl>
     </section>
     <section>
         <h2 class="subtitle">Ingredients</h2>
-        <form method="post" asp-action="Create">
+        <form method="post" asp-action="Create" class="item-presentation">
+            <div class="item-handler">
+                <span>Add an ingredient !</span>
+                <div>
+                    <button type="submit">+</button>
+                </div>
+            </div>
             <table>
                 <caption class="table-legend">List of ingredients. Fill fields and add ingredient to your recipe !
                 </caption>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th><label asp-for="IngredientName"></label></th>
-                        <th><label asp-for="Quantity"></label></th>
-                        <th><label asp-for="Unit"></label></th>
+                        <th class="item-datas item-number">N°</th>
+                        <th class="item-datas"><label asp-for="IngredientName"></label></th>
+                        <th class="item-datas"><label asp-for="Quantity"></label></th>
+                        <th class="item-datas"><label asp-for="Unit"></label></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td></td>
-                        <td>
+                        <td class="item-datas">
                             <input asp-for="IngredientName" />
                         </td>
-                        <td>
+                        <td class="item-datas">
                             <input asp-for="Quantity" />
                         </td>
-                        <td>
+                        <td class="item-datas">
                             <input asp-for="Unit" />
                         </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><span asp-validation-for="IngredientName" class="warning"></span></td>
-                        <td><span asp-validation-for="Quantity" class="warning"></span></td>
-                        <td><span asp-validation-for="Unit" class="warning"></span></td>
+                        <td><span asp-validation-for="IngredientName" class="warning warning-inline"></span></td>
+                        <td><span asp-validation-for="Quantity" class="warning warning-inline"></span></td>
+                        <td><span asp-validation-for="Unit" class="warning warning-inline"></span></td>
                     </tr>
                     @if ((string)ViewData["ErrorMessage"]! != "")
                     {
@@ -77,7 +95,6 @@
                     </tr>
                 </tbody>
             </table>
-            <input class="more-item" type="submit" value="Add an ingredient." />
         </form>
     </section>
 </main>
