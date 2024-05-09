@@ -4,7 +4,11 @@ Development of a cooking recipe web page.
 
 ## Project
 
-[ASP.NET MVC Pattern](https://dotnet.microsoft.com/en-us/apps/aspnet/mvc) version 7.0.400. Database with SQLite and EF Core.
+[ASP.NET MVC Pattern](https://dotnet.microsoft.com/en-us/apps/aspnet/mvc), [.NET] (https://dotnet.microsoft.com/en-us/download/dotnet/7.0) version 7.0.400. Database with SQLite and EF Core.
+
+## Package manager Nuget
+
+Verify nuget source with command line `dotnet nuget list source`. If no result `dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org`.
 
 ## Database
 
