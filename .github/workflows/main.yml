@@ -1,0 +1,16 @@
+name: Dotnet app
+on: [push]
+jobs:
+  check-code:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v6
+    - name: Setup Dotnet
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '8.0.x'
+    - name: Test build
+      run: dotnet build MvcIngredient.csproj
+    - name: Run test
+      run: dotnet test
