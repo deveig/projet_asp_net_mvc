@@ -15,7 +15,7 @@ RUN sed -i '27a<None Include="MvcIngredientContext-bf3483dd-9ed2-4ef1-a176-c35b4
 RUN dotnet restore
 
 # copy everything else and build app
-RUN dotnet publish -c Release -o /out --no-restore
+RUN dotnet publish -c Release -o out --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
