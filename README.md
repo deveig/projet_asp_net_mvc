@@ -23,4 +23,4 @@ Run application with command line `dotnet run`.
 
 Run tests with command line `dotnet test`.
 
-## Workflow GitHub Actions
+## Workflow GitHub Actions with test
