@@ -11,7 +11,7 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet ef migrations add InitialCreate && dotnet ef database update
 
 # copy csproj and restore as distinct layers
-RUN (Get-Content MvcIngredient.csproj) | ForEach-Object { $_ -replace "</PackageReference>', '`t`t</PackageReference>`n`t`t<None Include='MvcIngredientContext-bf3483dd-9ed2-4ef1-a176-c35b4a988d79.db' CopyToOutputDirectory='PreserveNewest'/>" } | Set-Content MvcIngredient.csproj
+RUN (Get-Content MvcIngredient.csproj) | ForEach-Object { $_ -replace '</PackageReference>', "<PackageReference>`n<None Include='MvcIngredientContext-bf3483dd-9ed2-4ef1-a176-c35b4a988d79.db' CopyToOutputDirectory='PreserveNewest'/>" } | Set-Content MvcIngredient.csproj
 RUN dotnet restore
 
 # copy everything else and build app
