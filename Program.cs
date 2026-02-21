@@ -11,6 +11,24 @@ builder.Services.AddDbContext<MvcIngredientContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(60);
+    // options.ExcludedHosts.Add("example.com");
+    // options.ExcludedHosts.Add("www.example.com");
+});
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpsRedirection(options =>
+    {
+        options.RedirectStatusCode = Status308PermanentRedirect;
+        options.HttpsPort = 443;
+    });
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
