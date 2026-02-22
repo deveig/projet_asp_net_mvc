@@ -1,12 +1,12 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /App
 
 # copy everything
 COPY . ./
 
 # database SQLite
-RUN dotnet tool install --global dotnet-ef --version 7.0
+RUN dotnet tool install --global dotnet-ef --version 10.0
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet ef migrations add InitialCreate && dotnet ef database update
 
@@ -18,7 +18,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o out --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /App
 COPY --from=build /App/out .
 ENTRYPOINT ["dotnet", "MvcIngredient.dll"]
