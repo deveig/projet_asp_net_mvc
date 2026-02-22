@@ -6,6 +6,7 @@ WORKDIR /App
 COPY . ./
 
 # database SQLite
+RUN dotnet restore
 RUN dotnet tool install --global dotnet-ef --version 10.0
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet ef migrations add InitialCreate && dotnet ef database update
