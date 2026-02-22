@@ -16,8 +16,7 @@ namespace MvcIngredient.Repository
 
         public async Task<List<Ingredient>> GetAllIngredients()
         {
-            return _context.Ingredient != null ?
-                await _context.Ingredient.ToListAsync() : null;
+            return await _context.Ingredient.ToListAsync();
         }
 
         public async void AddIngredient(Ingredient ingredient)

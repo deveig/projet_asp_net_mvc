@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 using MvcIngredient.Data;
 using MvcIngredient.Interfaces;
 using MvcIngredient.Repository;
