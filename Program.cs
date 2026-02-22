@@ -21,14 +21,14 @@ builder.Services.AddHsts(options =>
     // options.ExcludedHosts.Add("www.example.com");
 });
 
-// if (!builder.Environment.IsDevelopment())
-// {
-//     builder.Services.AddHttpsRedirection(options =>
-//     {
-//         options.RedirectStatusCode = Status308PermanentRedirect;
-//         options.HttpsPort = 443;
-//     });
-// }
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpsRedirection(options =>
+    {
+        options.RedirectStatusCode = Status308PermanentRedirect;
+        options.HttpsPort = 443;
+    });
+}
 
 var app = builder.Build();
 

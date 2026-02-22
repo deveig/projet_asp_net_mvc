@@ -36,3 +36,4 @@ jobs:
           with:
             push: true
             tags: doc12mp/mysql_app:dotnet_nginx
+            context: "{{defaultContext}}:nginx"
