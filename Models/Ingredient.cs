@@ -1,10 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace MvcIngredient.Models;
 
 public class Ingredient
 {
-    public int Id { get; set; }
+    public int IngredientId { get; set; }
 
     [Required]
     [StringLength(255)]
@@ -19,4 +20,9 @@ public class Ingredient
     [StringLength(100)]
     [Display(Name = "Metric")]
     public string? Unit { get; set; }
+
+    public int UserId { get; set; }
+
+    [ForeignKey("UserId")]
+    public User? User { get; set; }
 }

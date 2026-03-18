@@ -10,5 +10,6 @@ namespace MvcIngredient.Data
         }
 
         public DbSet<Models.Ingredient> Ingredient { get; set; } = default!;
+        public DbSet<Models.User> User { get; set; } = default!;
     }
 }

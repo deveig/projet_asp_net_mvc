@@ -404,11 +404,14 @@ header {
 .main-title,
 .subtitle {
   font-family: "Belgrano", serif;
-  text-align: center;
 }
 
 .main-title {
   font-size: 25px;
+}
+
+.form-title{
+  font-size: 15px;
 }
 
 main,
@@ -417,6 +420,7 @@ section {
 }
 
 .subtitle {
+  margin-left: 10%;
   font-size: 15px;
 }
 
@@ -484,6 +488,9 @@ section {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 20px;
   margin: 0;
@@ -556,6 +563,10 @@ input {
   .main-title {
     font-size: 45px;
     text-align: left;
+  }
+
+  .form-title {
+    font-size: 25px;
   }
 
   .subtitle {

@@ -1,13 +1,22 @@
-@model List<MvcIngredient.Models.Ingredient>
+@model MvcIngredient.Models.ViewModels.UserIngredientsViewModel
 
 @{
     ViewData["Title"] = "My cooking recipe.";
 }
 
 <header>
-    <img class="picture" src="~/recipe-dotnet/assets/salad.jpg" alt="Salad" />
+    <img class="picture" src="~/assets/salad.jpg" alt="Salad" />
     <div>
-        <h1 class="main-title">Salad</h1>
+        <h1 class="main-title">Salad of 
+            @if ((string)ViewData["UserName"]! == "")
+            {
+                <a asp-action="CreateUser" class="form-title">Add your name !</a>
+            } 
+            else
+            {
+                <span>@ViewData["UserName"]</span>
+            }
+        </h1> 
         <p class="description">Delicious flavored salad !</p>
     </div>
 </header>
@@ -50,7 +59,7 @@
         <div class="item-presentation">
             <div class="item-handler">
                 <span>Servings:
-                    <span>@Model.Count</span>
+                    <span>@Model.Ingredients!.Count!</span>
                 </span>
                 <div>
                     <span>Remove an ingredient !</span>
@@ -68,14 +77,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (var i = 0; i < Model.Count; i++)
+                    @if ((string)ViewData["UserName"]! != "")
                     {
-                        <tr>
-                            <td class="item-datas item-number">@(i + 1)</td>
-                            <td class="item-datas">@Html.DisplayFor(modelIngredient => Model[i].IngredientName)</td>
-                            <td class="item-datas">@Html.DisplayFor(modelIngredient => Model[i].Quantity)</td>
-                            <td class="item-datas">@Html.DisplayFor(modelIngredient => Model[i].Unit)</td>
-                        </tr>
+                        @for (var i = 0; i < Model.Ingredients.Count; i++)
+                        {
+                            <tr>
+                                <td class="item-datas item-number">@(i + 1)</td>
+                                <td class="item-datas">@Html.DisplayFor(modelIngredient => Model.Ingredients[i].IngredientName)</td>
+                                <td class="item-datas">@Html.DisplayFor(modelIngredient => Model.Ingredients[i].Quantity)</td>
+                                <td class="item-datas">@Html.DisplayFor(modelIngredient => Model.Ingredients[i].Unit)</td>
+                            </tr>
+                        }
                     }
                     @if ((string)ViewData["ErrorMessage"]! != "")
                     {
@@ -83,14 +95,20 @@
                             <td class="warning" colspan="4">@ViewData["ErrorMessage"]</td>
                         </tr>
                     }
-                    <tr>
-                        <td colspan="4"><a asp-action="Create">Add an ingredient !</a></td>
-                    </tr>
+                    @if ((string)ViewData["UserName"]! != "")
+                    {
+                        <tr>
+                            <td colspan="4"><a asp-action="CreateIngredient">Add an ingredient !</a></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
-        <form method="post" asp-action="Delete" id="form">
-            <input type="hidden" name="delete" value="true" />
-        </form>
+        @if ((string)ViewData["UserName"]! != "")
+        {
+            <form method="post" asp-action="Delete" id="form">
+                <input type="hidden" name="delete" value="true" />
+            </form>
+        }
     </section>
 </main>

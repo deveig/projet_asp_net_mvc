@@ -1,0 +1,93 @@
+@model MvcIngredient.Models.ViewModels.UserIngredientsViewModel
+
+@{
+    ViewData["Title"] = "My cooking recipe.";
+}
+
+<header>
+    <img class="picture" src="~/assets/salad.jpg" alt="Salad" />
+    <div>
+        <h1 class="main-title">Salad of 
+            @if ((string)ViewData["UserName"]! == "")
+                {
+                <form method="post" asp-action="CreateUser" class="item-presentation form-title">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="item-datas">
+                                    <label asp-for="User.UserName"></label>
+                                </th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="item-datas">
+                                    <input asp-for="User.UserName" />
+                                </td>
+                                <td>
+                                    <button class="more-item" name="plus_name" value="plus_name">+</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                }
+            else
+                {
+                @ViewData["UserName"]
+                }
+        </h1>
+        <span asp-validation-for="User.UserName" class="warning warning-inline"></span>
+        @if ((string)ViewData["ErrorMessage"]! != "")
+        {
+            <span class="warning" colspan="4">@ViewData["ErrorMessage"]</span>
+        }
+        <p class="description">Delicious flavored salad !</p>
+    </div>
+</header>
+<main>
+    <section>
+        <h2 class="subtitle">Overview</h2>
+        <dl class="features">
+            <div>
+                <dt class="feature-picture">
+                    <div class="rate">
+                        <i class="fa-solid fa-star fa-2xs"></i>
+                        <i class="fa-solid fa-star fa-2xs"></i>
+                        <i class="fa-solid fa-star-half-stroke fa-2xs"></i>
+                        <i class="fa-regular fa-star fa-2xs"></i>
+                        <i class="fa-regular fa-star fa-2xs"></i>
+                    </div>
+                </dt>
+                <dd class="feature">Difficulty</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">7€</dt>
+                <dd class="feature">Cost</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">45min</dt>
+                <dd class="feature">Preparation time</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">0min</dt>
+                <dd class="feature">Cooking time</dd>
+            </div>
+            <div>
+                <dt class="feature-picture feature-picture-decoration">20min</dt>
+                <dd class="feature">Resting time</dd>
+            </div>
+        </dl>
+    </section>
+    <section>
+        <h2 class="subtitle">Ingredients</h2>
+        <a asp-action="Index">All ingredients of the recipe.</a>
+        <a asp-action="CreateIngredient">Add an ingredient !</a>
+    </section>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

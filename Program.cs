@@ -9,6 +9,15 @@ builder.Services.AddDbContext<MvcIngredientContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("MvcIngredientContext") ?? throw new InvalidOperationException("Connection string 'MvcIngredientContext' not found.")))
     .AddScoped<IIngredientRepository, IngredientRepository>();
 
+// Add session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -39,7 +48,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

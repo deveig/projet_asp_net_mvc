@@ -13,12 +13,12 @@ namespace MvcIngredient.Repository
         {
             _context = context;
         }
-
-        public async Task<List<Ingredient>> GetAllIngredients()
+        public async Task<List<Ingredient>> GetAllIngredients(int userId)
         {
-            return await _context.Ingredient.ToListAsync();
+            return true ?
+                await _context.Ingredient.Where(ingredient => ingredient.UserId == userId).ToListAsync() : null;
         }
-
+        
         public async void AddIngredient(Ingredient ingredient)
         {
             _context.Add(ingredient);
@@ -29,6 +29,21 @@ namespace MvcIngredient.Repository
         {
             _context.Remove(lastIngredient);
             await _context.SaveChangesAsync();
+        }
+        public async void AddUser(User user)
+        {
+            _context.Add(user);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<User?> GetUserData(string userPassword)
+        {
+            return  _context.User != null ?
+                await _context.User.Where(user => user.UserPassword == userPassword).SingleAsync() : null;
+        }
+        public async Task<User?> GetUser(int? userId)
+        {
+            return _context.User != null ?
+                await _context.User.FindAsync(userId) : null;
         }
     }
 }
