@@ -7,7 +7,7 @@
 <header>
     <img class="picture" src="~/recipe-dotnet/assets/salad.jpg" alt="Salad" />
     <div>
-        <h1 class="main-title">Salad of 
+        <h1 class="main-title">
             @if ((string)ViewData["UserName"]! == "")
                 {
                 <form method="post" asp-action="CreateUser" class="item-presentation form-title">
@@ -36,6 +36,7 @@
                 {
                 @ViewData["UserName"]
                 }
+            's salad
         </h1>
         <span asp-validation-for="User.UserName" class="warning warning-inline"></span>
         @if ((string)ViewData["ErrorMessage"]! != "")
